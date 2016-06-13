@@ -16,74 +16,74 @@ public class News implements Serializable {
 	private String date;
 	private String channel;
 	private String description;
-	
+
 	/**
-	 * @return the title
+	 * @return The News title.
 	 */
 	public String getTitle() {
 		return title;
 	}
-	
+
 	/**
-	 * @param title the title to set
+	 * @param title The title to set.
 	 */
-	public void setTitle(String title) {
+	public void setTitle(final String title) {
 		this.title = title;
 	}
-	
+
 	/**
-	 * @return the link
+	 * @return Hyperlink to the news as a String.
 	 */
 	public String getLink() {
 		return link;
 	}
-	
+
 	/**
-	 * @param link the link to set
+	 * @param link Hyperlink to set.
 	 */
-	public void setLink(String link) {
+	public void setLink(final String link) {
 		this.link = link;
 	}
-	
+
 	/**
-	 * @return the date
+	 * @return News' publication date.
 	 */
 	public String getDate() {
 		return date;
 	}
-	
+
 	/**
-	 * @param date the date to set
+	 * @param date Publication date to set.
 	 */
-	public void setDate(String date) {
+	public void setDate(final String date) {
 		this.date = date;
 	}
-	
+
 	/**
-	 * @return the category
+	 * @return Source (Channel) of the news. Used in aggregated feeds.
 	 */
 	public String getChannel() {
 		return channel;
 	}
-	
+
 	/**
-	 * @param category the category to set
+	 * @param channel Source Channel name to set.
 	 */
-	public void setChannel(String channel) {
+	public void setChannel(final String channel) {
 		this.channel = channel;
 	}
-	
+
 	/**
-	 * @return the description
+	 * @return The news' description.
 	 */
 	public String getDescription() {
 		return description;
 	}
-	
+
 	/**
-	 * @param description the description to set
+	 * @param description The description to set.
 	 */
-	public void setDescription(String description) {
+	public void setDescription(final String description) {
 		this.description = description;
 	}
 }

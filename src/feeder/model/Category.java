@@ -1,6 +1,5 @@
 package feeder.model;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,7 +14,6 @@ import com.rometools.rome.feed.module.Module;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.feed.synd.SyndFeedImpl;
-import com.rometools.rome.io.FeedException;
 
 /**
  * <b>Category</b> represents folder/parent of Channel or multiple Channels.
@@ -23,16 +21,16 @@ import com.rometools.rome.io.FeedException;
  * 
  * @author	Paweł Dąbrowski
  * @since	2016-06-01
- * @version	0.7
+ * @version	1.0
  */
 public class Category implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private final String name;
+	private String name;
 	private Integer index = null;
 	private Map<String, Channel> channels;
 
 	/**
-	 * Constructor. Creates List object containing related {@link Channel}s.
+	 * Constructor. Creates Map object containing related Channels.
 	 * 
 	 * @param name Name of the category visible in the tree.
 	 */
@@ -42,7 +40,7 @@ public class Category implements Serializable {
 	}
 
 	/**
-	 * Simply adds {@link Channel} to the list of channels.
+	 * Simply adds Channel to the map of channels.
 	 * 
 	 * @param channel Channel object to add
 	 */
@@ -51,15 +49,12 @@ public class Category implements Serializable {
 	}
 
 	/**
-	 * Aggregates feeds from all {@link Channel}s belonging to the {@link Category} and
+	 * Aggregates feeds from all Channels belonging to the Category and
 	 * sorts them by date of publication.
 	 * 
-	 * @return HTML-formatted String with data like in {@link Channel#convertToHTML(SyndFeed, boolean)}
-	 * @throws FeedException
-	 * @throws IOException 
-	 * @throws IllegalArgumentException 
+	 * @return Channel object with isAggregated field set to true containing news from all belonging channels.
 	 */
-	public Channel getAggregatedFeed() throws FeedException, IllegalArgumentException, IOException {
+	public Channel getAggregatedFeed() {
 		SyndFeed feed = new SyndFeedImpl();
 		List<SyndEntry> entries = new ArrayList<SyndEntry>();
 
@@ -90,35 +85,50 @@ public class Category implements Serializable {
 		return new Channel(feed);
 	}
 
-	public Channel getChannelContent(String name) throws IllegalArgumentException, FeedException, IOException {
+	/**
+	 * @param name Name of the channel to get.
+	 * @return Requested Channel object.
+	 */
+	public Channel getChannel(String name) {
 		return channels.get(name);
 	}
-	
+
 	/**
-	 * @return Name of the {@link Category}.
-	 */
-	public String getName() {
-		return name;
-	}
-	
-	/**
-	 * @return the channels
+	 * @return The Map of belonging Channels.
 	 */
 	public Map<String, Channel> getChannelsMap() {
 		return channels;
 	}
 	
 	/**
-	 * @param index
+	 * @return Name of the Category.
 	 */
-	public void setIndex(Integer index) {
-		this.index = index;
+	public String getName() {
+		return name;
 	}
 
 	/**
-	 * @return
+	 * @param newName New name for the Category to set.
+	 */
+	public void setName(String newName) {
+		name = newName;
+	}
+
+	/**
+	 * This getter is used to manage items in JTree.
+	 * 
+	 * @return Index number in Map of Categories in Model.
 	 */
 	public Integer getIndex() {
 		return index;
+	}
+
+	/**
+	 * This setter is used to manage items in JTree.
+	 * 
+	 * @param index Index number to set in Map of Categories in Model.
+	 */
+	public void setIndex(Integer index) {
+		this.index = index;
 	}
 }
