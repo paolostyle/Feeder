@@ -86,11 +86,12 @@ public class Controller {
 		}
 		else {
 			model = new Model();
+			model.addNewCategory("Kategoria");
 			try {
-				model.addNewCategory("Kategoria");
 				model.addNewChannel("BBC", "http://feeds.bbci.co.uk/news/rss.xml", "Kategoria");
-			} catch (IllegalArgumentException | FeedException | IOException e) {
-				View.alertMessage(e.getMessage());
+			} 
+			catch (IllegalArgumentException | FeedException | IOException e) {
+				e.printStackTrace();
 			}
 		}
 

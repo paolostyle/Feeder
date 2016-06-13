@@ -50,7 +50,7 @@ public class Model implements Serializable {
 	 * @return True if added successfull, false otherwise.
 	 */
 	public boolean addNewCategory(String name) {
-		if (categories.containsKey(name) == false) {
+		if (categories.get(name) == null) {
 			Category category = new Category(name);
 			DefaultMutableTreeNode node = new DefaultMutableTreeNode(name);
 			categories.put(name, category);
@@ -74,7 +74,7 @@ public class Model implements Serializable {
 	 */
 	public boolean setCategoryName(String oldName, String newName) {
 		Category category = categories.get(oldName);
-		if (category != null && categories.containsKey(newName) == false) {
+		if (category != null && categories.get(newName) == null) {
 			categories.put(newName, categories.remove(oldName));
 			category.setName(newName);
 			DefaultMutableTreeNode categoryNode = (DefaultMutableTreeNode) root.getChildAt(category.getIndex());
@@ -146,7 +146,7 @@ public class Model implements Serializable {
 	public boolean addNewChannel(final String channelName, final String channelUrl, final String categoryName) throws IllegalArgumentException, FeedException, IOException{
 		Category category = categories.get(categoryName);
 		Channel channel = new Channel(channelName, channelUrl);
-		if (categories.get(category).getChannelsMap().containsKey(channelName) == false) {
+		if (categories.get(categoryName).getChannelsMap().get(channelName) == null) {
 			category.addChannel(channel);
 			DefaultMutableTreeNode categoryNode = (DefaultMutableTreeNode) root.getChildAt(category.getIndex());
 			DefaultMutableTreeNode channelNode = new DefaultMutableTreeNode(channelName);
@@ -184,7 +184,7 @@ public class Model implements Serializable {
 		Category category = categories.get(categoryName);
 		if (category != null) {
 			Channel channel = category.getChannelsMap().get(oldName);
-			if (channel != null && categories.get(category).getChannelsMap().containsKey(newName) == false) {
+			if (channel != null && categories.get(categoryName).getChannelsMap().get(newName) == null) {
 				category.getChannelsMap().put(newName, category.getChannelsMap().remove(oldName));
 				channel.setName(newName);
 				DefaultMutableTreeNode channelNode = (DefaultMutableTreeNode) root.getChildAt(category.getIndex()).getChildAt(channel.getIndex());
@@ -244,7 +244,7 @@ public class Model implements Serializable {
 		Category newCategory = categories.get(newCategoryName);
 		if (oldCategory != null && newCategory != null) {
 			Channel channel = oldCategory.getChannelsMap().remove(channelName);
-			if (channel != null && categories.get(newCategory).getChannelsMap().containsKey(channelName) == false) {
+			if (channel != null && categories.get(newCategoryName).getChannelsMap().get(channelName) == null) {
 				treeModel.removeNodeFromParent((DefaultMutableTreeNode) root.getChildAt(oldCategory.getIndex()).getChildAt(channel.getIndex()));
 
 				newCategory.addChannel(channel);
