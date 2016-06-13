@@ -47,8 +47,8 @@ import feeder.controller.Controller;
  * @since	2016-05-31
  * @version	1.0
  */
-public class View extends JFrame {
-	private static final long serialVersionUID = 1L;
+public class View {
+	private JFrame mainFrame;
 	private JButton btnAddFeed;
 	private JButton btnAddCat;
 	private JPanel ctpMain;
@@ -66,6 +66,7 @@ public class View extends JFrame {
 	 */
 	public View(Controller delegate) {
 		this.delegate = delegate;
+		mainFrame = new JFrame();
 
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -102,14 +103,14 @@ public class View extends JFrame {
 	 */
 	private void initFrame() {
 		// JFrame
-		setTitle("Feeder v0.9");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1024, 600);
+		mainFrame.setTitle("Feeder v1.0");
+		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mainFrame.setBounds(100, 100, 1024, 600);
 
 		// JPanel - background
 		ctpMain = new JPanel();
 		ctpMain.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(ctpMain);
+		mainFrame.setContentPane(ctpMain);
 
 		// Scrollable panels for content and tree
 		JScrollPane scrPaneTree = new JScrollPane();
@@ -168,16 +169,16 @@ public class View extends JFrame {
 		tree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 		tree.setComponentPopupMenu(menu);
 
-		//setting up custom renderer so we have nice icons
+		// setting up custom renderer so we have nice icons
 		DefaultTreeCellRenderer customRenderer = new CustomTreeCellRenderer();
 		tree.setCellRenderer(customRenderer);
 
-		//initializing stuff
+		// initializing stuff
 		scrPaneContent.setViewportView(feedPresenter);
 		scrPaneTree.setViewportView(tree);
 		ctpMain.setLayout(glCtpMain);
 
-		setVisible(true);
+		mainFrame.setVisible(true);
 	}
 
 	/**
@@ -192,7 +193,7 @@ public class View extends JFrame {
 	/**
 	 * Adds listeners to all possible events and sends handling of the events to Controller.
 	 */
-	public void eventListeners() {
+	private void eventListeners() {
 		btnAddCat.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent argument) {

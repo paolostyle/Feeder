@@ -45,6 +45,12 @@ public class NewFeedDialog extends JDialog {
 	public NewFeedDialog(Controller delegate) {
 		this.delegate = delegate;
 
+		addComponents();
+		cancelButtonListener();
+		okButtonListener();
+	}
+
+	private void addComponents() {
 		setTitle("Dodaj kanał RSS");
 		setResizable(false);
 		setModal(true);
@@ -117,15 +123,12 @@ public class NewFeedDialog extends JDialog {
 
 		cancelButton = new JButton("Anuluj");
 		buttonPane.add(cancelButton);
-
-		cancelButtonListener();
-		okButtonListener();
 	}
-
+	
 	/**
 	 * Listens to "Cancel" button actions.
 	 */
-	public void cancelButtonListener() {
+	private void cancelButtonListener() {
 		cancelButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent argument) {
@@ -137,7 +140,7 @@ public class NewFeedDialog extends JDialog {
 	/**
 	 * Listens to "OK" button actions.
 	 */
-	public void okButtonListener() {
+	protected void okButtonListener() {
 		okButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent argument) {
